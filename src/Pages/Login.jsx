@@ -7,18 +7,21 @@ import axios from 'axios'
 function Login() {
     const [user,setUser]=useState("");
     const [pass,setPass]=useState("");
-    const handleSubmit=(e)=>{
+    const handleSubmit=async (e)=>{
         e.preventDefault();
         console.log(user);
-        const data={userName:user,password:pass};
+        const data={userId:user,password:pass};
         try{
-            const res=  axios.post('',data)
-            console.log(res.data)
+            const res= await axios.post('http://localhost:6001/api/login',data)
+           
+            console.log(res)
         }
         catch(e){
             alert(e);
         }
     }
+   
+
   return (
     <>
     <div className='login-body'>
