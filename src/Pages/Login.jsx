@@ -15,6 +15,8 @@ function Login() {
             const res= await axios.post('http://localhost:6001/api/login',data)
            
             console.log(res)
+            localStorage.setItem('User', res.data.user_id);
+            
         }
         catch(e){
             alert(e);
