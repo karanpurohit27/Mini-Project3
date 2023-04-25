@@ -7,15 +7,30 @@ import axios from 'axios'
 function Login() {
     const [user,setUser]=useState("");
     const [pass,setPass]=useState("");
-    const post={userName:user,password:pass}
-    const handleSubmit= async(e)=>{
+    const handleSubmit=async (e)=>{
         e.preventDefault();
         console.log(user);
-        const data={userName:user,password:pass};
-        console.log(data)
-        axios.post('http://localhost:6001/api/login',{data})
-        
+        const data={userId:user,password:pass};
+        try{
+            const res= await axios.post('http://localhost:6001/api/login',data)
+           
+            console.log(res)
+            console.log(res.data.status)
+            
+            if(res.data.status==="success"){
+              localStorage.setItem('User', res.data.user_id);
+              window.location='/dashboard'  
+            }
+            else{
+              alert("Something Went Wrong")
+            }
+        }
+        catch(e){
+            alert(e);
+        }
     }
+   
+
   return (
     <>
     <div className='login-body'>
