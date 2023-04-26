@@ -15,8 +15,6 @@ function Login() {
             const res= await axios.post('http://localhost:6001/api/login',data)
            
             console.log(res)
-            console.log(res.data.status)
-            
             if(res.data.status==="success"){
               localStorage.setItem('User', res.data.user_id);
               window.location='/dashboard'  
