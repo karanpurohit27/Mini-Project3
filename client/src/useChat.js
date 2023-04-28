@@ -28,8 +28,10 @@ const useChat = (roomId) => {
 
   const sendMessage = (messageBody) => {
     socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
-      body: messageBody,
+      body: messageBody.msg,
       senderId: socketRef.current.id,
+      user_id: messageBody.user_id,
+      case_id: messageBody.case_id
     });
   };
 
