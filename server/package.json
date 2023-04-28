@@ -1,5 +1,7 @@
 {
-  "name": "server",
+
+  "name": "courtroom",
+
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -18,5 +20,6 @@
     "mongoose": "^7.0.4",
     "nodemon": "^2.0.22",
     "socket.io": "3.0.4"
+
   }
 }

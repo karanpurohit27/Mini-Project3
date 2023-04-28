@@ -2,11 +2,14 @@ const mongoose = require('mongoose')
 
 
 const caseSchema = new mongoose.Schema({
+
     case_id: {
+
         type:String,
         required:[true,"can't be blank"],
         trim: true
     },
+
     status:{
         type: String,
         enum: ['closed','active']
@@ -21,9 +24,11 @@ const caseSchema = new mongoose.Schema({
     last_active:{
         type: Date,
         required:false
+
     }
 },
 {timestamps:true})
+
 
 const caseModel =  mongoose.model('case',caseSchema);
 

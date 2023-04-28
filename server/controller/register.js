@@ -1,3 +1,4 @@
+
 // const bcrypt = require("bcrypt");
 const User = require("../models/users");
 
@@ -18,7 +19,6 @@ class Register {
 
     if (user) {
       res.json({ status: "failed", message: "User Already Exist!!" });
-
       console.log(user);
     } else {
       if (firstname && userId && password) {
@@ -26,6 +26,7 @@ class Register {
           try {
             const salt = await bcrypt.genSalt(10);
             const hash_password = await bcrypt.hash(password, salt);
+
             const doc = new User({
               firstname: firstname,
               lastname: lastname,
@@ -34,6 +35,7 @@ class Register {
               role: role,
             });
             await doc.save();
+
             const saved = await User.findOne({ user_id: userId });
 
             if (saved) {
@@ -64,6 +66,7 @@ class Register {
         res.json({ status: "failed", message: "All feilds are required" });
       }
     }
+
   };
   static login = async (req, res) => {
     // res.send('Login here');
@@ -78,11 +81,14 @@ class Register {
         // const checkpass = await bcrypt.compareSync(password, user.password);
         
         if (user.user_id === userId && user.password === password) {
+
           console.log("Login Successfully");
           res.status(201).json({
             status: "success",
             message: "Login Successful",
+
             user_id: user.user_id
+
           });
         } else {
           console.log("Login Unsuccessful");
@@ -90,8 +96,10 @@ class Register {
             status: "failed",
             message: "Please check the credentials",
           };
+
           res.json(result);
           
+
         }
       } else {
         console.log("All feilds are required");
@@ -104,6 +112,7 @@ class Register {
         message: "User not found! Please register",
       });
     }
+
   };
 }
 

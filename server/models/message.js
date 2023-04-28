@@ -2,17 +2,21 @@ const mongoose = require('mongoose')
 
 
 const msgSchema = new mongoose.Schema({
+
     msg_id: {
         type:String,
         required:[true,"can't be blank"],
         trim: true
     },
+
     content: {
+
         type:String,
         required: false,
         default: null,
         trim: true
     },
+
     user_id: {
         type:String,
         required: true,
