@@ -1,8 +1,11 @@
 import React from "react";
+import { useEffect } from "react";
 import "./ChatRoom.css";
 import useChat from "../useChat";
 import axios from 'axios';
-import FileUpload from "../FileUpload/FileUpload";
+import FileUpload from '../FileUpload/FileUpload';
+
+
 
 const ChatRoom = (props) => {
   // const { roomId } = props.match.params;
@@ -10,9 +13,20 @@ const ChatRoom = (props) => {
   const [message, setMessage] = React.useState([]);
   const { messages, sendMessage } = useChat(roomId);
   const [newMessage, setNewMessage] = React.useState("");
-  const [files,setFiles] = React.useState({});
   const [cid, setCid] = React.useState(null);
 
+  const [link,setLink] = React.useState("");
+
+
+
+  const fun1 = (msg)=>{
+    console.log(msg);
+    // setLink(msg);
+    setNewMessage(msg);
+    console.log(newMessage);
+    handleSendMessage();
+    // console.log(msg);
+  }
 
 
 const user = localStorage.getItem('User');
@@ -23,24 +37,16 @@ const user = localStorage.getItem('User');
     setMessage(res.data.allmessages);
   };
 
-  React.useEffect(() => {
-    console.log("Reload");
-    fetchInfo();
-  }, []);
-// Create a reference to the hidden file input element
-
-  
-// Programatically click the hidden file input element
-// when the Button component is clicked
-
 
   const handleNewMessageChange = (event) => {
-    setNewMessage(event.target.value);
+    
+console.log(event);
+      setNewMessage(event.target.value);
+    
   };
-
-  
   const handleSendMessage = () => {
     const msg = {
+      
       msg: newMessage,
       user_id: localStorage.getItem('User'),
       case_id: localStorage.getItem('roomId'),
@@ -87,9 +93,11 @@ const user = localStorage.getItem('User');
       </div>
      <div className="input-container">
       {/* <input type="file" className="file-input" onChange={onChange} /> */}
-     <FileUpload files={files} setFiles={setFiles} />
-
-    
+      {/* <button type="file" className="file-input" onClick={handleClick} >File</button><input type="file" ref={hiddenFileInput} onChange={onChange} style={{display: 'none'}} /> */}
+<FileUpload fun={fun1} />
+      {/* {cid && (
+        <p>CID: {cid}</p>
+      )} */}
       <textarea
         value={newMessage}
         onChange={handleNewMessageChange}

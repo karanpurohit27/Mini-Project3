@@ -1,29 +1,40 @@
 import React from "react";
 import axios from "axios";
+import '../ChatRoom/ChatRoom.css';
 
+const FileUpload = ({fun}) => {
 
-const FileUpload = ({files,setFiles}) =>{
+  const [file, setFile] = React.useState(null);
+
+  const handleFileChange = async (event) => {
+    setFile(event.target.files[0]);
     
-  const onChange = async (event) => {
-    
-    files = event.target.files[0];
-
-    // const result = await ipfs.add(file);
-    // console.log(result);
-
-    // setCid(result.cid.toString());
   }
-    const hiddenFileInput = React.useRef(null);
-    const handleClick = event => {
-        hiddenFileInput.current.click();
-      };
-      
-    return (
-        <>
-        <button type="file" className="file-input" onClick={handleClick} >File</button><input type="file" ref={hiddenFileInput} onChange={onChange} style={{display: 'none'}} />
-        </>
-    )
+  
+  const handleSubmit = async (e) => {
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      console.log(file);
+      // const 
+      const res = await axios.post('http://localhost:4000/api/upload', formData);
+      console.log(res);
+      // if(res.)
+      fun(res.data.link);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <>
+      <input style={{ diplay: 'none' }} type="file" accept="image/*" onChange={handleFileChange} />
+      <button className="file-input" onClick={handleSubmit}>
+      file</button>
+      {file && <p>{file.name}</p>}
+    </>
+  );
+
+
 }
-
-
 export default FileUpload;
